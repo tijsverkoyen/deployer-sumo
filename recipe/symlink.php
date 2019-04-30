@@ -24,7 +24,7 @@ task(
 
         // Show a warning when the document root exists. So we don't overwrite
         // existing stuff.
-        if (folderExists(get('document_root'))) {
+        if ($currentSymlink === '' && folderExists(get('document_root'))) {
             writeln(
                 [
                     '<comment>Document root already exists</comment>',
@@ -39,15 +39,9 @@ task(
             return;
         }
 
-        // create the parent folder and the symlink
-        run(
-            sprintf(
-                'mkdir -p %1$s; ln -sf %2$s %3$s',
-                dirname(get('document_root')),
-                $publicPath,
-                get('document_root')
-            )
-        );
+        run(sprintf('mkdir -p %1$s', dirname(get('document_root'))));
+        run('rm -f {{document_root}}');
+        run(sprintf('{{bin/symlink}} %1$s {{document_root}}', $publicPath));
     }
 );
 
