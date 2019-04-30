@@ -20,3 +20,9 @@ function folderExists($path): bool
                )
            ) === 'true';
 }
+
+function getCurrentGitHash(): string
+{
+    cd('{{release_path}}');
+    return trim(run('git log -n 1 --format="%H"'));
+}
