@@ -4,7 +4,8 @@ namespace Deployer;
 
 use Symfony\Component\Console\Input\InputArgument;
 
-argument('command-to-run', InputArgument::REQUIRED, ' Command to run');
+argument('command-to-run', InputArgument::OPTIONAL, ' Command to run');
+desc('Run a symfony console command');
 task(
     'symfony:console',
     function () {
