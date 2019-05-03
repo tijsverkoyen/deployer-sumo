@@ -51,13 +51,6 @@ Enable a redirect page, all traffic will be redirected to this page.
   
 Creates the needed symlinks to link the document root to the correct folder.
   
-### `symfony:console`
-             
-Run a symfony console command.
-
-Remark: you can't run it without a command. So if you need a list of available
-commands use `dep symfony:console list`.
-
 
 ## License
 
