@@ -10,7 +10,7 @@ desc('Notify our webhooks on a deploy');
 task(
     'sumo:notifications:deploy',
     function () {
-        Httpie::post('http://bodddt.sumo.sumoapp.be:3001/deploy/hook')
+        Httpie::post('http://bot.sumo.sumoapp.be:3001/deploy/hook')
               ->body(
                   [
                       'local_username' => getenv('USER'),
