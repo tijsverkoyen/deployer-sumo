@@ -5,8 +5,6 @@ namespace Deployer;
 use TijsVerkoyen\DeployerSumo\Utility\Database;
 use TijsVerkoyen\DeployerSumo\Utility\Configuration;
 
-require_once __DIR__ . '/../common.php';
-
 $database = new Database();
 
 desc('Create the database if it does not exists yet');

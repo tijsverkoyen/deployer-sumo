@@ -2,8 +2,6 @@
 
 namespace Deployer;
 
-require_once __DIR__ . '/../common.php';
-
 desc('Enable a redirect page, all traffic will be redirected to this page.');
 task(
     'sumo:redirect:enable',
