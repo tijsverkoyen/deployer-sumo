@@ -2,12 +2,14 @@
 
 namespace Deployer;
 
-require_once __DIR__ . '/../common.php';
+use TijsVerkoyen\DeployerSumo\Utility\Path;
+
+$pathUtility = new Path();
 
 desc('Symlink the document root to the public folder');
 task(
     'sumo:symlink:document-root',
-    function () {
+    function () use ($pathUtility) {
         if (!get('document_root', false)) {
             return;
         }
@@ -18,13 +20,13 @@ task(
         );
 
         // already linked, so we can stop here
-        if ($currentSymlink === expandPath($publicPath)) {
+        if ($currentSymlink === $pathUtility->expandPath($publicPath)) {
             return;
         }
 
         // Show a warning when the document root exists. So we don't overwrite
         // existing stuff.
-        if ($currentSymlink === '' && folderExists(get('document_root'))) {
+        if ($currentSymlink === '' && test('[ -e {{document_root}} ]')) {
             writeln(
                 [
                     '<comment>Document root already exists</comment>',
