@@ -11,5 +11,13 @@
             "name": "Tijs Verkoyen",
             "email": "deployer-sumo@verkoyen.eu"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "TijsVerkoyen\\DeployerSumo\\": "src"
+        }
+    },
+    "require": {
+        "symfony/dotenv": "^4.2"
+    }
 }
