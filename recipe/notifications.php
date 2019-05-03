@@ -3,20 +3,21 @@
 namespace Deployer;
 
 use Deployer\Utility\Httpie;
+use TijsVerkoyen\DeployerSumo\Utility\Git;
 
-require_once __DIR__ . '/../common.php';
+$git = new Git();
 
 desc('Notify our webhooks on a deploy');
 task(
     'sumo:notifications:deploy',
-    function () {
+    function () use ($git) {
         Httpie::post('http://bot.sumo.sumoapp.be:3001/deploy/hook')
               ->body(
                   [
                       'local_username' => getenv('USER'),
                       'stage' => get('stage'),
                       'repo' => get('repository'),
-                      'revision' => getCurrentGitHash(),
+                      'revision' => $git->getCurrentHash(),
                   ]
               )
               ->send();
