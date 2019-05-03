@@ -5,14 +5,14 @@ namespace Deployer;
 use TijsVerkoyen\DeployerSumo\Utility\Database;
 use TijsVerkoyen\DeployerSumo\Utility\Configuration;
 
-$database = new Database();
+$databaseUtility = new Database();
 
 desc('Create the database if it does not exists yet');
 task(
     'sumo:db:create',
-    function () use ($database) {
+    function () use ($databaseUtility) {
         writeln(
-            run('create_db ' . $database->getName())
+            run('create_db ' . $databaseUtility->getName())
         );
     }
 )->onStage('staging');
@@ -20,9 +20,9 @@ task(
 desc('Get info about the database');
 task(
     'sumo:db:info',
-    function () use ($database) {
+    function () use ($databaseUtility) {
         writeln(
-            run('info_db ' . $database->getName())
+            run('info_db ' . $databaseUtility->getName())
         );
     }
 )->onStage('staging');
@@ -30,7 +30,7 @@ task(
 desc('Replace the local database with the remote database');
 task(
     'sumo:db:get',
-    function () use ($database) {
+    function () use ($databaseUtility) {
         $remoteDatabaseUrl = parse_url(
             Configuration::fromRemote()->get('DATABASE_URL')
         );
@@ -41,8 +41,8 @@ task(
         run(
             sprintf(
                 'mysqldump --lock-tables=false --set-charset %1$s %2$s > {{deploy_path}}/db_download.tmp.sql',
-                $database->getConnectionOptions($remoteDatabaseUrl),
-                $database->getNameFromConnectionOptions($remoteDatabaseUrl)
+                $databaseUtility->getConnectionOptions($remoteDatabaseUrl),
+                $databaseUtility->getNameFromConnectionOptions($remoteDatabaseUrl)
             )
         );
         download(
@@ -54,8 +54,8 @@ task(
         runLocally(
             sprintf(
                 'mysql %1$s %2$s < ./db_download.tmp.sql',
-                $database->getConnectionOptions($localDatbaseUrl),
-                $database->getNameFromConnectionOptions($localDatbaseUrl)
+                $databaseUtility->getConnectionOptions($localDatbaseUrl),
+                $databaseUtility->getNameFromConnectionOptions($localDatbaseUrl)
             )
         );
         runLocally('rm ./db_download.tmp.sql');
@@ -65,7 +65,7 @@ task(
 desc('Replace the remote database with the local database');
 task(
     'sumo:db:put',
-    function () use ($database) {
+    function () use ($databaseUtility) {
         $remoteDatabaseUrl = parse_url(
             Configuration::fromRemote()->get('DATABASE_URL')
         );
@@ -78,8 +78,8 @@ task(
         run(
             sprintf(
                 'mysqldump --lock-tables=false --set-charset %1$s %2$s > {{deploy_path}}/backup_%3$s.sql',
-                $database->getConnectionOptions($remoteDatabaseUrl),
-                $database->getNameFromConnectionOptions($remoteDatabaseUrl),
+                $databaseUtility->getConnectionOptions($remoteDatabaseUrl),
+                $databaseUtility->getNameFromConnectionOptions($remoteDatabaseUrl),
                 date('YmdHi')
             )
         );
@@ -87,8 +87,8 @@ task(
         runLocally(
             sprintf(
                 'mysqldump --column-statistics=0 --lock-tables=false --set-charset %1$s %2$s > ./db_upload.tmp.sql',
-                $database->getConnectionOptions($localDatbaseUrl),
-                $database->getNameFromConnectionOptions($localDatbaseUrl)
+                $databaseUtility->getConnectionOptions($localDatbaseUrl),
+                $databaseUtility->getNameFromConnectionOptions($localDatbaseUrl)
             )
         );
         upload('./db_upload.tmp.sql', '{{deploy_path}}/db_upload.tmp.sql');
@@ -97,8 +97,8 @@ task(
         run(
             sprintf(
                 'mysql %1$s %2$s < {{deploy_path}}/db_upload.tmp.sql',
-                $database->getConnectionOptions($remoteDatabaseUrl),
-                $database->getNameFromConnectionOptions($remoteDatabaseUrl)
+                $databaseUtility->getConnectionOptions($remoteDatabaseUrl),
+                $databaseUtility->getNameFromConnectionOptions($remoteDatabaseUrl)
             )
         );
         run('rm {{deploy_path}}/db_upload.tmp.sql');
