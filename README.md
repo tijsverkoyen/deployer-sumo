@@ -12,7 +12,7 @@ composer require tijsverkoyen/deployer-sumo --dev
 Include recipes in `deploy.php` file.
 
 ```php
-require '../../tijsverkoyen/deployer-sumo/sumo.php';
+require __DIR__ . '/vendor/tijsverkoyen/deployer-sumo/sumo.php';
 ```
 
 
