@@ -2,9 +2,6 @@
     "name": "tijsverkoyen/deployer-sumo",
     "description": "Deployer recipe with SumoCoders specific tasks",
     "type": "library",
-    "require-dev": {
-        "deployer/deployer": "^6.4"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -18,6 +15,8 @@
         }
     },
     "require": {
-        "symfony/dotenv": "^4.2"
+        "symfony/dotenv": "^4.2",
+        "deployer/deployer": "^6.4",
+        "deployer/recipes": "^6.2"
     }
 }
