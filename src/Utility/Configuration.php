@@ -48,7 +48,7 @@ class Configuration
         return new Configuration($values);
     }
 
-    public static function fromLocal()
+    public static function fromLocal(): Configuration
     {
         if (file_exists(getcwd() . '/.env.local')) {
             $path = getcwd() . '/.env.local';
