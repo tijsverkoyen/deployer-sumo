@@ -37,8 +37,12 @@ class Configuration
     {
         $values = [];
 
-        // check if we have a .env file
+        // check if we have a .env.local or .env file
         $envPath = Deployer\get('deploy_path') . '/shared/.env';
+        if (Deployer\test("[ -f $envPath.local ]")) {
+            $envPath .= '.local';
+        }
+
         if (Deployer\test("[ -f $envPath ]")) {
             $values = (new Dotenv())->parse(
                 Deployer\run("cat $envPath")
@@ -48,7 +52,7 @@ class Configuration
         return new Configuration($values);
     }
 
-    public static function fromLocal()
+    public static function fromLocal(): Configuration
     {
         if (file_exists(getcwd() . '/.env.local')) {
             $path = getcwd() . '/.env.local';
