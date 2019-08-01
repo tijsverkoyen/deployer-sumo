@@ -19,5 +19,4 @@ task('sumo:opcache:reset-file', function () {
     }
 
     run('rm ' . $scriptPath);
-    writeln('Opcache successfully reset using file.');
 });
