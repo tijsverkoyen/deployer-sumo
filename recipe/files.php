@@ -25,5 +25,30 @@ desc('Replace the remote files with the local files');
 task(
     'sumo:files:put',
     function () {
+        // ask for confirmation
+        if (!askConfirmation('Are you sure? This will overwrite files on production!')) {
+            return;
+        }
+
+        $sharedDirectories = get('shared_dirs');
+        if (!is_array($sharedDirectories) || empty($sharedDirectories)) {
+            return;
+        }
+
+        // remove some system dirs
+        $directoriesToIgnore = [
+            'var/log',      // this directory may contain useful information
+            'var/sessions'  // this directory may contain active sessions
+        ];
+        $sharedDirectories = array_values(array_filter(
+            $sharedDirectories,
+            function ($element) use ($directoriesToIgnore) {
+                return !in_array($element, $directoriesToIgnore);
+            }
+        ));
+
+        foreach ($sharedDirectories as $directory) {
+            upload('./' . $directory, '{{deploy_path}}/shared/');
+        }
     }
 );
