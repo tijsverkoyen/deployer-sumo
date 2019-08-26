@@ -39,6 +39,16 @@ Be aware that no backup will be made.
 
 Use this command to replace the remote database with your local database.
 
+### `sumo:files:get`
+
+Run this task to replace your local files with the remote files.
+Be aware that no backup will be made.
+
+### `sumo:files:put`
+
+Run this task to replace the remote files with your local files.
+Be aware that no backup will be made.
+
 ### `sumo:notifications:deploy`   
 
 Notify our webhooks on a deploy. This task is automatically added into the flow.
