@@ -38,7 +38,7 @@ task(
         // remove some system dirs
         $directoriesToIgnore = [
             'var/log',      // this directory may contain useful information
-            'var/sessions'  // this directory may contain active sessions
+            'var/sessions', // this directory may contain active sessions
         ];
         $sharedDirectories = array_values(array_filter(
             $sharedDirectories,
