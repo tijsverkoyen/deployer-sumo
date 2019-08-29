@@ -9,7 +9,10 @@ task('sumo:opcache:reset-file', function () {
     $opcacheResetScript = 'opcache_reset.php';
     $scriptPath = '{{ release_path }}/public/' . $opcacheResetScript;
 
-    run('echo "<?php opcache_reset();" > ' . $scriptPath);
+    run(
+        'echo "<?php clearstatcache(true); if (function_exists(\'opcache_reset\')) { opcache_reset(); }" > ' .
+        $scriptPath
+    );
 
     $response = Httpie::get(get('production_url') . '/' . $opcacheResetScript)->send();
     if ($response === false) {
