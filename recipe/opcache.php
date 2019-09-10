@@ -7,7 +7,11 @@ use Deployer\Utility\Httpie;
 desc('Reset the opcache using a file strategy');
 task('sumo:opcache:reset-file', function () {
     $opcacheResetScript = 'php-opcache_reset.php';
-    $scriptPath = '{{ release_path }}/public/' . $opcacheResetScript;
+    $publicDirectory = '{{ release_path }}/';
+    if (test('[ -d {{release_path}}/public ]')) {
+        $publicDirectory = '{{ release_path }}/public';
+    }
+    $scriptPath =  $publicDirectory . '/' . $opcacheResetScript;
 
     run(
         'echo "<?php clearstatcache(true); if (function_exists(\'opcache_reset\')) { opcache_reset(); }" > ' .
