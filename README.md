@@ -60,6 +60,10 @@ Enable a redirect page, all traffic will be redirected to this page.
 ### `sumo:symlink:document-root`
   
 Creates the needed symlinks to link the document root to the correct folder.
+
+### `sumo:opcache:reset-file`
+
+Clears opcache and statcache using a file strategy.
   
 
 ## License
