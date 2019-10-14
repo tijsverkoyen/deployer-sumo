@@ -15,7 +15,7 @@ task(
             $path = '{{deploy_path}}/shared/' . $directory;
 
             if (test(sprintf('[ -d %1$s ]', $path))) {
-                download($path, './');
+                download($path, $directory . '/../');
             }
         }
     }
