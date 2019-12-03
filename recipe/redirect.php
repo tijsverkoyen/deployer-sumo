@@ -14,10 +14,10 @@ task(
 
         run('mkdir -p {{redirect_path}}');
         run(
-            'wget -qO {{redirect_path}}/index.php http://static.sumocoders.be/redirect/index.phps'
+            'wget -qO {{redirect_path}}/index.php http://static.sumocoders.be/redirect2/index.phps'
         );
         run(
-            'wget -qO {{redirect_path}}/.htaccess http://static.sumocoders.be/redirect/htaccess'
+            'wget -qO {{redirect_path}}/.htaccess http://static.sumocoders.be/redirect2/htaccess'
         );
         run(
             'sed -i "s|<real-url>|{{production_url}}|" {{redirect_path}}/index.php'
