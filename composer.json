@@ -15,8 +15,8 @@
         }
     },
     "require": {
-        "deployer/deployer": "^6.4",
+        "deployer/deployer": "^6.8",
         "deployer/recipes": "^6.2",
-        "symfony/dotenv": "^5.0"
+        "symfony/dotenv": "^5.3"
     }
 }
