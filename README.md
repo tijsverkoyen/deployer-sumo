@@ -18,6 +18,10 @@ require __DIR__ . '/vendor/tijsverkoyen/deployer-sumo/sumo.php';
 
 ## Available tasks
 
+### `sumo:assets:install`
+
+Install bundle's web assets under a public directory
+
 ### `sumo:db:create`
 
 Creates a database on our dev server. This task can will only run on the
