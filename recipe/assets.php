@@ -11,4 +11,4 @@ task(
 );
 
 // add it to the flow
-after('deploy:symlink', 'sumo:assets:install');
+before('deploy:symlink', 'sumo:assets:install');
