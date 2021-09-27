@@ -45,7 +45,7 @@ class Configuration
             // get database url from parameters
             $parameters = Yaml::parse(Deployer\run('cat app/config/parameters.yml'))['parameters'];
             $databaseUrl = self::getDatabaseUrlFromParameters($parameters);
-            
+
             if ($databaseUrl !== '') {
                 return new Configuration(['DATABASE_URL' => $databaseUrl]);
             }
@@ -68,8 +68,9 @@ class Configuration
 
     public static function fromLocal(): Configuration
     {
-        if (file_exists(getcwd() . '/app/config/parameters.yml')) {
-            $path = getcwd() . '/app/config/parameters.yml';
+        $path = getcwd() . '/app/config/parameters.yml';
+
+        if (file_exists($path)) {
             $parameters = Yaml::parse(file_get_contents($path))['parameters'];
             $databaseUrl = self::getDatabaseUrlFromParameters($parameters);
 
