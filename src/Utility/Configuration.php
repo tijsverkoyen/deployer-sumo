@@ -38,12 +38,11 @@ class Configuration
     {
         $values = [];
 
-        // check if we have parameters.yml file
-        $envPath = Deployer\get('deploy_path') . '/shared/app/config/parameters.yml';
+        $parametersPath = Deployer\get('deploy_path') . '/shared/app/config/parameters.yml';
 
-        if (Deployer\test("[ -f $envPath ]")) {
+        if (Deployer\test("[ -f $parametersPath ]")) {
             // get database url from parameters
-            $parameters = Yaml::parse(Deployer\run('cat app/config/parameters.yml'))['parameters'];
+            $parameters = Yaml::parse(Deployer\run("cat $parametersPath"))['parameters'];
             $databaseUrl = self::getDatabaseUrlFromParameters($parameters);
 
             if ($databaseUrl !== '') {
