@@ -15,7 +15,7 @@ task(
             run('create_db ' . $databaseUtility->getName())
         );
     }
-)->onStage('staging');
+)->select('stage=staging');
 
 desc('Get info about the database');
 task(
@@ -25,7 +25,7 @@ task(
             run('info_db ' . $databaseUtility->getName())
         );
     }
-)->onStage('staging');
+)->select('stage=staging');
 
 desc('Replace the local database with the remote database');
 task(

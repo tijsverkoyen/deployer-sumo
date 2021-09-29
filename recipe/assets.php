@@ -6,7 +6,7 @@ desc('Install bundle\'s web assets under a public directory');
 task(
     'sumo:assets:install',
     function () {
-        run('{{bin/php}} {{bin/console}} assets:install {{console_options}}');
+        run('{{bin/console}} assets:install {{console_options}}');
     }
 );
 
