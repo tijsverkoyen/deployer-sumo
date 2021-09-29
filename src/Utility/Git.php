@@ -8,7 +8,7 @@ class Git
 {
     public function getCurrentHash(): string
     {
-        Deployer\cd('{{release_path}}');
+        Deployer\cd('{{deploy_path}}/.dep/repo');
         return trim(Deployer\run('git log -n 1 --format="%H"'));
     }
 }
