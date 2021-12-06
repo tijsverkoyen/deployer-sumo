@@ -19,7 +19,7 @@ task(
         } else {
             $publicPath = get('public_path');
         }
-        
+
         $currentSymlink = run(
             'if [ -L {{document_root}} ]; then readlink {{document_root}}; fi'
         );
