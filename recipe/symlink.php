@@ -14,7 +14,12 @@ task(
             return;
         }
 
-        $publicPath = get('deploy_path') . '/current/public/';
+        if (get('public_path') === null) {
+            $publicPath = get('deploy_path') . '/current/public/';
+        } else {
+            $publicPath = get('public_path');
+        }
+        
         $currentSymlink = run(
             'if [ -L {{document_root}} ]; then readlink {{document_root}}; fi'
         );
