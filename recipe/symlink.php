@@ -14,10 +14,10 @@ task(
             return;
         }
 
-        if (get('public_path') === null) {
+        if (test('[ -d {{release_path}}/public ]')) {
             $publicPath = get('deploy_path') . '/current/public/';
         } else {
-            $publicPath = get('public_path');
+            $publicPath = get('deploy_path') . '/current/';
         }
 
         $currentSymlink = run(
