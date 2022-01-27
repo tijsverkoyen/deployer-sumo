@@ -7,7 +7,7 @@ use TijsVerkoyen\DeployerSumo\Utility\Configuration;
 
 $databaseUtility = new Database();
 
-desc('Create the database if it does not exists yet');
+desc('Create the staging database if it does not exists yet');
 task(
     'sumo:db:create',
     function () use ($databaseUtility) {
@@ -16,6 +16,26 @@ task(
         );
     }
 )->select('stage=staging');
+
+desc('Create the local database if it does not exists yet');
+task(
+    'sumo:db:create-local',
+    function () use ($databaseUtility) {
+        $localDatabaseUrl = parse_url(
+            Configuration::fromLocal()->get('DATABASE_URL')
+        );
+
+        runLocally(
+            sprintf(
+                'mysql %1$s -e "CREATE DATABASE IF NOT EXISTS %2$s; GRANT ALL PRIVILEGES ON %2$s.* TO %3$s@localhost IDENTIFIED BY \'%4$s\'"',
+                $databaseUtility->getConnectionOptions($localDatabaseUrl),
+                $databaseUtility->getNameFromConnectionOptions($localDatabaseUrl),
+                $localDatabaseUrl['user'],
+                $localDatabaseUrl['pass']
+            )
+        );
+    }
+);
 
 desc('Get info about the database');
 task(
@@ -34,7 +54,7 @@ task(
         $remoteDatabaseUrl = parse_url(
             Configuration::fromRemote()->get('DATABASE_URL')
         );
-        $localDatbaseUrl = parse_url(
+        $localDatabaseUrl = parse_url(
             Configuration::fromLocal()->get('DATABASE_URL')
         );
 
@@ -54,8 +74,8 @@ task(
         runLocally(
             sprintf(
                 'mysql %1$s %2$s < ./db_download.tmp.sql',
-                $databaseUtility->getConnectionOptions($localDatbaseUrl),
-                $databaseUtility->getNameFromConnectionOptions($localDatbaseUrl)
+                $databaseUtility->getConnectionOptions($localDatabaseUrl),
+                $databaseUtility->getNameFromConnectionOptions($localDatabaseUrl)
             )
         );
         runLocally('rm ./db_download.tmp.sql');
@@ -69,7 +89,7 @@ task(
         $remoteDatabaseUrl = parse_url(
             Configuration::fromRemote()->get('DATABASE_URL')
         );
-        $localDatbaseUrl = parse_url(
+        $localDatabaseUrl = parse_url(
             Configuration::fromLocal()->get('DATABASE_URL')
         );
 
@@ -87,10 +107,11 @@ task(
         runLocally(
             sprintf(
                 'mysqldump --column-statistics=0 --lock-tables=false --set-charset %1$s %2$s > ./db_upload.tmp.sql',
-                $databaseUtility->getConnectionOptions($localDatbaseUrl),
-                $databaseUtility->getNameFromConnectionOptions($localDatbaseUrl)
+                $databaseUtility->getConnectionOptions($localDatabaseUrl),
+                $databaseUtility->getNameFromConnectionOptions($localDatabaseUrl)
             )
         );
+
         upload('./db_upload.tmp.sql', '{{deploy_path}}/db_upload.tmp.sql');
         runLocally('rm ./db_upload.tmp.sql');
 
