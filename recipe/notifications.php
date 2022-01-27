@@ -12,7 +12,7 @@ task(
     'sumo:notifications:deploy',
     function () use ($gitUtility) {
         Httpie::post('http://bot.sumo.sumoapp.be:3001/deploy/hook')
-            ->body(
+            ->jsonBody(
                 [
                     'local_username' => getenv('USER'),
                     'stage' => get('stage'),
