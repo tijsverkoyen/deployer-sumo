@@ -15,7 +15,7 @@ task(
 
         $nvmRcFile = '.nvmrc';
 
-        // If there is no .env.local file on staging, stop
+        // If there is no .nvmrc file, stop
         if (!file_exists($nvmRcFile)) {
             writeln('No .nvmrc file found. Aborting.');
             return;
