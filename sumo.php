@@ -2,7 +2,6 @@
 
 namespace Deployer;
 
-require_once 'recipe/variables.php';
 require_once 'recipe/assets.php';
 require_once 'recipe/database.php';
 require_once 'recipe/files.php';
