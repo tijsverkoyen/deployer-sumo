@@ -47,11 +47,12 @@ Be aware that no backup will be made.
 
 Use this command to replace the remote database with your local database.
 
-### `sumo:project:get`
+### `sumo:project:init`
 
 This is an aggregate task, it will run all the following tasks:
 * sumo:db:create-local
 * sumo:db:get
+* sumo:config:get
 * sumo:config:alter
 * sumo:files:get
 * sumo:assets:fix-npm
