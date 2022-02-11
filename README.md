@@ -55,7 +55,7 @@ This is an aggregate task, it will run all the following tasks:
 * sumo:config:get
 * sumo:config:alter
 * sumo:files:get
-* sumo:assets:fix-npm
+* sumo:assets:fix-node-version
 * sumo:assets:build
 
 It can be used to locally set up a project that is already on the staging or production server.
