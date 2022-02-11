@@ -27,11 +27,9 @@ task(
 
         runLocally(
             sprintf(
-                'mysql %1$s -e "CREATE DATABASE IF NOT EXISTS %2$s; GRANT ALL PRIVILEGES ON %2$s.* TO %3$s@localhost IDENTIFIED BY \'%4$s\'"',
+                'mysql %1$s -e "CREATE DATABASE IF NOT EXISTS %2$s;"',
                 $databaseUtility->getConnectionOptions($localDatabaseUrl),
-                $databaseUtility->getNameFromConnectionOptions($localDatabaseUrl),
-                $localDatabaseUrl['user'],
-                $localDatabaseUrl['pass']
+                $databaseUtility->getNameFromConnectionOptions($localDatabaseUrl)
             )
         );
     }
