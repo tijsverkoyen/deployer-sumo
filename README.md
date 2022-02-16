@@ -1,6 +1,6 @@
-# Deployer Sumo specific Recipe
+# Deployer Sumo recipe
 
-Recipe for usage with [deployer][https://deployer.org/]. It includes tasks
+Recipe for usage with [Deployer](https://deployer.org/). It includes tasks
 specific for [SumoCoders](https://sumocoders.be).
 
 ## Installing
@@ -18,9 +18,9 @@ require __DIR__ . '/vendor/tijsverkoyen/deployer-sumo/sumo.php';
 
 ## Available tasks
 
-### `sumo:assets:install`
+### `sumo:assets:build`
 
-Install bundle's web assets under a public directory
+Build your project's assets using Webpack and NVM.
 
 ### `sumo:db:create`
 
@@ -34,6 +34,10 @@ It will output the credentials.
 This task will output the credentials of the existing database on the dev server.
 This task can will only run on the host with the stage "staging".
 
+### `sumo:db:create-local`
+
+Creates a database on your local MySQL instance.
+
 ### `sumo:db:get`
 
 Run this task to replace your local database with the remote database.
@@ -43,6 +47,18 @@ Be aware that no backup will be made.
 
 Use this command to replace the remote database with your local database.
 
+### `sumo:project:init`
+
+This is an aggregate task, it will run all the following tasks:
+* sumo:db:create-local
+* sumo:db:get
+* sumo:config:get
+* sumo:config:alter
+* sumo:files:get
+* sumo:assets:fix-node-version
+* sumo:assets:build
+
+It can be used to locally set up a project that is already on the staging or production server.
 ### `sumo:files:get`
 
 Run this task to replace your local files with the remote files.
