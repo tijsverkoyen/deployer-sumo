@@ -2,9 +2,9 @@
 
 namespace Deployer;
 
-desc('Install bundle\'s web assets under a public directory');
+desc('Run the build script which will build our needed assets.');
 task(
-    'sumo:assets:install',
+    'sumo:assets:fix-node-version',
     function () {
         $nvmPath = trim(shell_exec('echo $HOME/.nvm/nvm.sh'));
 
@@ -47,5 +47,6 @@ task(
     }
 );
 
-// add it to the flow
-before('deploy:symlink', 'sumo:assets:install');
+// Specify order during deploy
+after('deploy:update_code', 'sumo:assets:build');
+after('sumo:assets:build', 'sumo:assets:upload');

@@ -13,7 +13,7 @@ task(
         if (!get('document_root', false)) {
             return;
         }
-
+        
         if (test('[ -d {{release_path}}/public ]')) {
             $publicPath = get('deploy_path') . '/current/public';
         } else {
