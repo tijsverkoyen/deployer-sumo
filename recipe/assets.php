@@ -43,7 +43,7 @@ desc('Uploads the assets');
 task(
     'sumo:assets:upload',
     function () {
-        upload(__DIR__ . '/public/build', '{{release_path}}/public');
+        upload('/public/build', '{{release_path}}/public');
     }
 );
 
