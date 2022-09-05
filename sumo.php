@@ -2,6 +2,8 @@
 
 namespace Deployer;
 
+require_once __DIR__ . '/../../autoload.php';
+
 require_once 'recipe/assets.php';
 require_once 'recipe/database.php';
 require_once 'recipe/config.php';
