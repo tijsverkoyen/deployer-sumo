@@ -16,6 +16,6 @@
     },
     "require": {
         "symfony/dotenv": "^3.4 || ^5.3 || ^6.0",
-        "deployer/deployer": "^7.0@beta"
+        "deployer/deployer": "^7.0"
     }
 }
