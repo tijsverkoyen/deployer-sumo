@@ -17,7 +17,7 @@ task(
             if (test(sprintf('[ -d %1$s ]', $path))) {
                 // make sure path exists locally
                 runLocally('mkdir -p ' . $directory);
-                download($path, $directory);
+                download($path, $directory. '/../');
             }
         }
     }
@@ -50,7 +50,7 @@ task(
         ));
 
         foreach ($sharedDirectories as $directory) {
-            upload('./' . $directory, '{{deploy_path}}/shared/');
+            upload('./' . $directory, '{{deploy_path}}/shared/' . $directory . '/../');
         }
     }
 );
