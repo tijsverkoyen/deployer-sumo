@@ -6,6 +6,24 @@ desc('Run the build script which will build our needed assets.');
 task(
     'sumo:assets:fix-node-version',
     function () {
+        if (!file_exists('package.json')) {
+            writeln('No package.json file found. Aborting.');
+            return;
+        }
+
+        if (!shell_exec('command -v volta')) {
+            writeln('Volta not found on local system.');
+        }
+
+        if (isset(json_decode(file_get_contents('package.json') ?: '', true)['volta'])) {
+            return;
+        }
+
+        warning('Switching to Volta is recommended.');
+        writeln('Pin the current node version with `volta pin node@$semver`');
+        writeln('Where $semver can be replaced with the semantic version you want.');
+        writeln('Then remove .nvmrc and commit your changes.');
+
         $nvmPath = trim(shell_exec('echo $HOME/.nvm/nvm.sh'));
 
         if (!file_exists($nvmPath)) {
@@ -31,7 +49,7 @@ task(
     function () {
         $nvmPath = trim(shell_exec('echo $HOME/.nvm/nvm.sh'));
 
-        if (file_exists($nvmPath)) {
+        if (file_exists($nvmPath) && file_exists('.nvmrc')) {
             runLocally('. ' . $nvmPath . ' && nvm use && nvm exec npm run build');
         } else {
             runLocally('npm run build');

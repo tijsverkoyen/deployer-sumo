@@ -20,7 +20,7 @@ require __DIR__ . '/vendor/tijsverkoyen/deployer-sumo/sumo.php';
 
 ### `sumo:assets:build`
 
-Build your project's assets using Webpack and NVM.
+Build your project's assets using Webpack.
 
 ### `sumo:db:create`
 
