@@ -20,7 +20,9 @@ task(
         }
 
         warning('Switching to Volta is recommended.');
-        writeln('Run `volta pin node@lts && rm .nvmrc` and commit');
+        writeln('Pin the current node version with `volta pin node@$semver`');
+        writeln('Where $semver can be replaced with the semantic version you want.');
+        writeln('Then remove .nvmrc and commit your changes.');
 
         $nvmPath = trim(shell_exec('echo $HOME/.nvm/nvm.sh'));
 
