@@ -6,6 +6,11 @@ desc('Run the build script which will build our needed assets.');
 task(
     'sumo:assets:fix-node-version',
     function () {
+        if (!file_exists('package.json')) {
+            writeln('No package.json file found. Aborting.');
+            return;
+        }
+
         if (!shell_exec('command -v volta')) {
             writeln('Volta not found on local system.');
         }
