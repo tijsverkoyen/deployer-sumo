@@ -12,6 +12,7 @@ task(
         invoke('sumo:config:alter');
         invoke('sumo:files:get');
         invoke('sumo:assets:fix-node-version');
+        invoke('sumo:assets:npm-install');
         invoke('sumo:assets:build');
     }
 );
