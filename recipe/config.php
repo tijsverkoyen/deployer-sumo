@@ -40,7 +40,7 @@ task(
         $content = preg_replace('/APP_ENV=prod/', 'APP_ENV=dev', $content);
 
         // Empty out the Sentry DSN
-        $content = preg_replace('/^.*SENTRY_DNS.*$/m', 'SENTRY_DSN=', $content);
+        $content = preg_replace('/^.*SENTRY_DSN.*$/m', 'SENTRY_DSN=', $content);
 
         // Replace the database URL
         $newDatabaseUrl = 'DATABASE_URL="mysql://root:root@127.0.0.1:3306/%s"';
