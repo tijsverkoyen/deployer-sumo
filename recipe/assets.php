@@ -43,6 +43,20 @@ task(
     }
 );
 
+desc('Install the dependencies needed to build our assets.');
+task(
+    'sumo:assets:npm-install',
+    function () {
+        $nvmPath = trim(shell_exec('echo $HOME/.nvm/nvm.sh'));
+
+        if (file_exists($nvmPath) && file_exists('.nvmrc')) {
+            runLocally('. ' . $nvmPath . ' && nvm use && nvm exec npm install');
+        } else {
+            runLocally('npm install');
+        }
+    }
+);
+
 desc('Run the build script which will build our needed assets.');
 task(
     'sumo:assets:build',

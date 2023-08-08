@@ -36,16 +36,23 @@ task(
         $localConfigFile = '.env.local';
         $content = file_get_contents($localConfigFile);
 
-        // Switch to dev mode
-        $content = preg_replace('/APP_ENV=prod/', 'APP_ENV=dev', $content);
+        if ($content) {
+            // Switch to dev mode
+            $content = preg_replace('/APP_ENV=prod/', 'APP_ENV=dev', $content);
 
-        // Empty out the Sentry DSN
-        $content = preg_replace('/^.*SENTRY_DNS.*$/m', 'SENTRY_DSN=', $content);
+            // Empty out the Sentry DSN
+            $content = preg_replace('/^.*SENTRY_DSN.*$/m', 'SENTRY_DSN=', $content);
 
-        // Replace the database URL
-        $newDatabaseUrl = 'DATABASE_URL="mysql://root:root@127.0.0.1:3306/%s"';
-        $localDatabaseName = $databaseUtility->getName();
-        $content = preg_replace('/^.*DATABASE_URL.*$/m', sprintf($newDatabaseUrl, $localDatabaseName), $content);
+            // Replace the database URL
+            $newDatabaseUrl = 'DATABASE_URL="mysql://root:root@127.0.0.1:3306/%s"';
+            $localDatabaseName = $databaseUtility->getName();
+            $content = preg_replace('/^.*DATABASE_URL.*$/m', sprintf($newDatabaseUrl, $localDatabaseName), $content);
+        } else {
+            // Create file for dev mode with the default database
+            $newDatabaseUrl = 'DATABASE_URL="mysql://root:root@127.0.0.1:3306/%s"';
+            $localDatabaseName = $databaseUtility->getName();
+            $content = 'APP_ENV=dev' . PHP_EOL . sprintf($newDatabaseUrl, $localDatabaseName) . PHP_EOL;
+        }
 
         file_put_contents($localConfigFile, $content);
     }
