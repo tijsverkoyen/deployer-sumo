@@ -4,7 +4,6 @@ namespace Deployer;
 
 use TijsVerkoyen\DeployerSumo\Utility\Database;
 use TijsVerkoyen\DeployerSumo\Utility\Configuration;
-use Symfony\Bundle\FrameworkBundle\Secrets\SodiumVault;
 
 $databaseUtility = new Database();
 
