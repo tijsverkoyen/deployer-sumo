@@ -4,6 +4,7 @@ namespace Deployer;
 
 use TijsVerkoyen\DeployerSumo\Utility\Database;
 use TijsVerkoyen\DeployerSumo\Utility\Configuration;
+use Symfony\Bundle\FrameworkBundle\Secrets\SodiumVault;
 
 $databaseUtility = new Database();
 
@@ -49,12 +50,20 @@ desc('Replace the local database with the remote database');
 task(
     'sumo:db:get',
     function () use ($databaseUtility) {
-        $remoteDatabaseUrl = parse_url(
-            Configuration::fromRemote()->get('DATABASE_URL')
-        );
-        $localDatabaseUrl = parse_url(
-            Configuration::fromLocal()->get('DATABASE_URL')
-        );
+        $local = runLocally("symfony console secrets:get DATABASE_URL --env dev");
+        $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:get DATABASE_URL");
+
+        if ($remote === null || $remote === '') {
+            $remote = Configuration::fromRemote()->get('DATABASE_URL');
+        }
+
+        if ($local === null || $local === '') {
+
+            $local = Configuration::fromLocal()->get('DATABASE_URL');
+        }
+
+        $remoteDatabaseUrl = parse_url($remote);
+        $localDatabaseUrl = parse_url($local);
 
         run(
             sprintf(
@@ -84,12 +93,20 @@ desc('Replace the remote database with the local database');
 task(
     'sumo:db:put',
     function () use ($databaseUtility) {
-        $remoteDatabaseUrl = parse_url(
-            Configuration::fromRemote()->get('DATABASE_URL')
-        );
-        $localDatabaseUrl = parse_url(
-            Configuration::fromLocal()->get('DATABASE_URL')
-        );
+        $local = runLocally("symfony console secrets:get DATABASE_URL --env dev");
+        $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:get DATABASE_URL");
+
+        if ($remote === null || $remote === '') {
+            $remote = Configuration::fromRemote()->get('DATABASE_URL');
+        }
+
+        if ($local === null || $local === '') {
+
+            $local = Configuration::fromLocal()->get('DATABASE_URL');
+        }
+
+        $remoteDatabaseUrl = parse_url($remote);
+        $localDatabaseUrl = parse_url($local);
 
         // create a backup
         // @todo make separate backup dir
