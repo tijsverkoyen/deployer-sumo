@@ -15,7 +15,7 @@ task(
             ->jsonBody(
                 [
                     'local_username' => getenv('USER'),
-                    'stage' => get('stage'),
+                    'stage' => get('labels')['stage'] ?? null,
                     'repo' => get('repository'),
                     'revision' => $gitUtility->getCurrentHash(),
                 ]
