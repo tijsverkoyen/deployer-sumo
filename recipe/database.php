@@ -57,7 +57,6 @@ task(
         }
 
         if ($local === null || $local === '') {
-
             $local = Configuration::fromLocal()->get('DATABASE_URL');
         }
 
@@ -100,7 +99,6 @@ task(
         }
 
         if ($local === null || $local === '') {
-
             $local = Configuration::fromLocal()->get('DATABASE_URL');
         }
 
