@@ -6,7 +6,7 @@ use Deployer\Utility\Httpie;
 
 desc('Reset the opcache using a file strategy');
 task('sumo:opcache:reset-file', function () {
-    $opcacheResetScript = 'php-opcache_reset.php';
+    $opcacheResetScript = 'php-opcache-reset.php';
     $scriptPath = '{{ document_root }}/' . $opcacheResetScript;
 
     run(
