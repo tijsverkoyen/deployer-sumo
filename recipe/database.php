@@ -49,8 +49,12 @@ desc('Replace the local database with the remote database');
 task(
     'sumo:db:get',
     function () use ($databaseUtility) {
-        $local = runLocally("symfony console secrets:get DATABASE_URL --env dev");
-        $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:get DATABASE_URL");
+        try {
+            $local = runLocally("symfony console secrets:get DATABASE_URL --env dev");
+            $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:get DATABASE_URL");
+        } catch (\Exception $exception) {
+            $local = $remote = null;
+        }
 
         if ($remote === null || $remote === '') {
             $remote = Configuration::fromRemote()->get('DATABASE_URL');
@@ -91,8 +95,12 @@ desc('Replace the remote database with the local database');
 task(
     'sumo:db:put',
     function () use ($databaseUtility) {
-        $local = runLocally("symfony console secrets:get DATABASE_URL --env dev");
-        $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:get DATABASE_URL");
+        try {
+            $local = runLocally("symfony console secrets:get DATABASE_URL --env dev");
+            $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:get DATABASE_URL");
+        } catch (\Exception $exception) {
+            $local = $remote = null;
+        }
 
         if ($remote === null || $remote === '') {
             $remote = Configuration::fromRemote()->get('DATABASE_URL');
