@@ -32,6 +32,9 @@ final class Database
         if (array_key_exists('host', $config)) {
             $options[] = '--host=' . $config['host'];
         }
+        if (array_key_exists('port', $config)) {
+            $options[] = '--port=' . $config['port'];
+        }
         if (array_key_exists('user', $config)) {
             $options[] = '--user=' . $config['user'];
         }
