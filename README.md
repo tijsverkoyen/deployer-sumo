@@ -15,7 +15,6 @@ Include recipes in `deploy.php` file.
 require __DIR__ . '/vendor/tijsverkoyen/deployer-sumo/sumo.php';
 ```
 
-
 ## Available tasks
 
 ### `sumo:assets:build`
@@ -50,6 +49,7 @@ Use this command to replace the remote database with your local database.
 ### `sumo:project:init`
 
 This is an aggregate task, it will run all the following tasks:
+
 * sumo:db:create-local
 * sumo:db:get
 * sumo:config:get
@@ -60,6 +60,7 @@ This is an aggregate task, it will run all the following tasks:
 * sumo:assets:build
 
 It can be used to locally set up a project that is already on the staging or production server.
+
 ### `sumo:files:get`
 
 Run this task to replace your local files with the remote files.
@@ -70,32 +71,30 @@ Be aware that no backup will be made.
 Run this task to replace the remote files with your local files.
 Be aware that no backup will be made.
 
-### `sumo:notifications:deploy`   
+### `sumo:notifications:deploy`
 
 Notify our webhooks on a deploy. This task is automatically added into the flow.
 
 ### `sumo:redirect:enable`
-        
+
 Enable a redirect page, all traffic will be redirected to this page.
-  
 
 ### `sumo:symlink:crontab`
 
 **This will only work on Cloudstar servers**
 
-If `.crontab` exists in your project a symlink for `~/.crontab/XXX.crontab` to your file is 
+If `.crontab` exists in your project a symlink for `~/.crontab/XXX.crontab` to your file is
 created.
 
 After a short period the content of your `.crontab` file will be used as crontab.
 
 ### `sumo:symlink:document-root`
-  
+
 Creates the needed symlinks to link the document root to the correct folder.
 
 ### `sumo:opcache:reset-file`
 
 Clears opcache and statcache using a file strategy.
-  
 
 ## License
 
