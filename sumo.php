@@ -7,6 +7,7 @@ require_once __DIR__ . '/../../autoload.php';
 require_once 'recipe/assets.php';
 require_once 'recipe/database.php';
 require_once 'recipe/config.php';
+require_once 'recipe/crontab.php';
 require_once 'recipe/files.php';
 require_once 'recipe/notifications.php';
 require_once 'recipe/redirect.php';
