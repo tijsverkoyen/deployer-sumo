@@ -78,6 +78,16 @@ Notify our webhooks on a deploy. This task is automatically added into the flow.
         
 Enable a redirect page, all traffic will be redirected to this page.
   
+
+### `sumo:symlink:crontab`
+
+**This will only work on Cloudstar servers**
+
+If `.crontab` exists in your project a symlink for `~/.crontab/XXX.crontab` to your file is 
+created.
+
+After a short period the content of your `.crontab` file will be used as crontab.
+
 ### `sumo:symlink:document-root`
   
 Creates the needed symlinks to link the document root to the correct folder.
