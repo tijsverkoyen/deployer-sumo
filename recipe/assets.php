@@ -2,7 +2,7 @@
 
 namespace Deployer;
 
-desc('Run the build script which will build our needed assets.');
+desc('Volta check');
 task(
     'sumo:assets:fix-node-version',
     function () {
