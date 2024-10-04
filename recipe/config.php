@@ -34,6 +34,11 @@ task(
     function () {
         $databaseUtility = new Database();
         $localConfigFile = '.env.local';
+
+        if (!testLocally(sprintf('[ -f %1$s ]', $localConfigFile))) {
+            runLocally('touch ' . $localConfigFile);
+        }
+
         $content = file_get_contents($localConfigFile);
 
         if ($content) {
