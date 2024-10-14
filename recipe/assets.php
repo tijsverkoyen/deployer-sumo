@@ -16,6 +16,7 @@ task(
     'sumo:assets:upload',
     function () {
         upload('public/assets', '{{release_path}}/public');
+        upload('var/sass', '{{release_path}}/var');
     }
 );
 
