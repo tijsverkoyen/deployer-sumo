@@ -11,8 +11,6 @@ task(
         invoke('sumo:db:create-local');
         invoke('sumo:db:get');
         invoke('sumo:files:get');
-        invoke('sumo:assets:fix-node-version');
-        invoke('sumo:assets:npm-install');
         invoke('sumo:assets:build');
     }
 );
