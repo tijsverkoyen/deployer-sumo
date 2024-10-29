@@ -57,7 +57,13 @@ task(
         }
 
         if ($remote === null || $remote === '') {
-            $remote = Configuration::fromRemote()->get('DATABASE_URL');
+            try {
+                $remote = Configuration::fromRemote()->get('DATABASE_URL');
+            } catch (\RuntimeException $exception) {
+                warning('Database does not exist on remote.');
+
+                return;
+            }
         }
 
         if ($local === null || $local === '') {
