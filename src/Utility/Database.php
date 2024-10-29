@@ -59,5 +59,4 @@ final class Database
 
         return $string;
     }
-
 }
