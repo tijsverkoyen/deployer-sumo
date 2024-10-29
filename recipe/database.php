@@ -132,7 +132,7 @@ task(
 
         runLocally(
             sprintf(
-                'mysqldump --column-statistics=0 --lock-tables=false --set-charset %1$s %2$s > ./db_upload.tmp.sql',
+                'mysqldump --lock-tables=false --set-charset %1$s %2$s > ./db_upload.tmp.sql',
                 $databaseUtility->getConnectionOptions($localDatabaseUrl),
                 $databaseUtility->getNameFromConnectionOptions($localDatabaseUrl)
             )
