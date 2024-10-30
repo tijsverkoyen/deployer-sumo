@@ -10,8 +10,8 @@ final class Database
     {
         return sprintf(
             '%1$s_%2$s',
-            mb_substr(Deployer\get('client'), 0, 8),
-            mb_substr(Deployer\get('project'), 0, 7)
+            $this->cleanupString(Deployer\get('client'), 8),
+            $this->cleanupString(Deployer\get('project'), 7)
         );
     }
 
@@ -43,5 +43,20 @@ final class Database
         }
 
         return implode(' ', $options);
+    }
+
+    private function cleanupString(string $string, $length = null): string
+    {
+        $string = str_replace(
+            ['-', '.'],
+            ['_', '_'],
+            $string
+        );
+
+        if ($length !== null) {
+            $string = mb_substr($string, 0, $length);
+        }
+
+        return $string;
     }
 }

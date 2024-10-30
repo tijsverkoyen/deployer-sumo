@@ -57,7 +57,13 @@ task(
         }
 
         if ($remote === null || $remote === '') {
-            $remote = Configuration::fromRemote()->get('DATABASE_URL');
+            try {
+                $remote = Configuration::fromRemote()->get('DATABASE_URL');
+            } catch (\RuntimeException $exception) {
+                warning('Database does not exist on remote.');
+
+                return;
+            }
         }
 
         if ($local === null || $local === '') {
@@ -126,7 +132,7 @@ task(
 
         runLocally(
             sprintf(
-                'mysqldump --column-statistics=0 --lock-tables=false --set-charset %1$s %2$s > ./db_upload.tmp.sql',
+                'mysqldump --lock-tables=false --set-charset %1$s %2$s > ./db_upload.tmp.sql',
                 $databaseUtility->getConnectionOptions($localDatabaseUrl),
                 $databaseUtility->getNameFromConnectionOptions($localDatabaseUrl)
             )
