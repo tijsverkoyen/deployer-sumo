@@ -79,6 +79,15 @@ task(
     }
 );
 
+desc('Remove built assets for local development');
+task(
+    'sumo:assets:remove',
+    function () {
+        runLocally('rm -rf public/assets');
+    }
+);
+
 // Specify order during deploy
 after('deploy:update_code', 'sumo:assets:build');
 after('sumo:assets:build', 'sumo:assets:upload');
+after('sumo:assets:upload', 'sumo:assets:remove');
