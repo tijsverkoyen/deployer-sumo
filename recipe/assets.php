@@ -7,9 +7,11 @@ task(
     'sumo:assets:build',
     function () {
         if(testLocally('symfony')) {
+            runLocally('symfony console cache:clear');
             runLocally('symfony console sass:build');
             runLocally('symfony console asset-map:compile');
         } else {
+            runLocally('php bin/console cache:clear');
             runLocally('php bin/console importmap:install --no-interaction');
             runLocally('php bin/console sass:build --no-interaction');
             runLocally('php bin/console asset-map:compile --no-interaction');
