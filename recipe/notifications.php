@@ -11,7 +11,7 @@ desc('Notify our webhooks on a deploy');
 task(
     'sumo:notifications:deploy',
     function () use ($gitUtility) {
-        Httpie::post('http://bot.sumo.sumoapp.be:3001/deploy/hook')
+        Httpie::post('https://bot.sumo.sumoapp.be/deploy/hook')
             ->jsonBody(
                 [
                     'local_username' => getenv('USER'),
