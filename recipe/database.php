@@ -50,8 +50,8 @@ task(
     'sumo:db:get',
     function () use ($databaseUtility) {
         try {
-            $local = runLocally("symfony console secrets:get DATABASE_URL --env dev");
-            $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:get DATABASE_URL");
+            $local = runLocally("symfony console secrets:reveal DATABASE_URL --env dev");
+            $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:reveal DATABASE_URL");
         } catch (\Exception $exception) {
             $local = $remote = null;
         }
@@ -102,8 +102,8 @@ task(
     'sumo:db:put',
     function () use ($databaseUtility) {
         try {
-            $local = runLocally("symfony console secrets:get DATABASE_URL --env dev");
-            $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:get DATABASE_URL");
+            $local = runLocally("symfony console secrets:reveal DATABASE_URL --env dev");
+            $remote = run("{{ bin/php }} {{ current_path }}/bin/console secrets:reveal DATABASE_URL");
         } catch (\Exception $exception) {
             $local = $remote = null;
         }
