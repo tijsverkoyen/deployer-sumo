@@ -13,7 +13,7 @@ task(
         if (!get('document_root', false)) {
             return;
         }
-        
+
         if (test('[ -d {{release_path}}/public ]')) {
             $publicPath = get('deploy_path') . '/current/public';
         } else {
@@ -33,7 +33,7 @@ task(
         // existing stuff.
         if ($currentSymlink === '' && test('[ -e {{document_root}} ]')) {
             writeln(
-                [
+                implode(PHP_EOL, [
                     '<comment>Document root already exists</comment>',
                     '<comment>To link it, issue the following command:</comment>',
                     sprintf(
@@ -41,7 +41,7 @@ task(
                         $publicPath,
                         get('document_root')
                     ),
-                ]
+                ])
             );
             return;
         }
