@@ -14,7 +14,7 @@ task('sumo:opcache:reset-file', function () {
         $scriptPath
     );
 
-    $response = Httpie::get(get('production_url') . '/' . $opcacheResetScript)->send();
+    $response = Httpie::get(get('production_url') . '/' . $opcacheResetScript)->send()->body();
     if ($response !== '') {
         writeln('<comment>Could not perform an opcache reset via file.</comment>');
     }
