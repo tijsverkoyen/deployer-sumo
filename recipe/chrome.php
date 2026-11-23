@@ -49,20 +49,20 @@ task('sumo:chrome:install', function () {
         ));
     }
 
-    run(sprintf('ln -sfn %1$s {{chrome_path}}/current', escapeshellarg($version . '/chrome-' . $platform)));
-
-    $path = parse('{{chrome_path}}/current/chrome');
+    $binary = $versionPath . '/chrome-' . $platform . '/chrome';
     try {
-        writeln(run(escapeshellarg($path) . ' --version'));
+        writeln(run(escapeshellarg($binary) . ' --version'));
     } catch (\Throwable $e) {
         writeln('<comment>Chrome does not start, missing libraries:</comment>');
-        writeln(run(sprintf('ldd %1$s | grep "not found" || true', escapeshellarg($path))));
+        writeln(run(sprintf('ldd %1$s | grep "not found" || true', escapeshellarg($binary))));
         writeln(sprintf(
             '<comment>The packages Chrome needs are listed in %1$s/deb.deps (Debian/Ubuntu) and rpm.deps.</comment>',
-            dirname($path)
+            dirname($binary)
         ));
 
         throw $e;
     }
-    writeln(sprintf('Chrome binary: <info>%1$s</info>', $path));
+
+    run(sprintf('ln -sfn %1$s {{chrome_path}}/current', escapeshellarg($version . '/chrome-' . $platform)));
+    writeln(sprintf('Chrome binary: <info>%1$s</info>', parse('{{chrome_path}}/current/chrome')));
 });
