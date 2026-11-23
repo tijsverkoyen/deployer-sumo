@@ -37,6 +37,26 @@ Uploads `public/build` to the stage.
 
 This task is executed after `sumo:assets:build`.
 
+### `sumo:chrome:install`
+
+Downloads the latest stable [Chrome for Testing](https://googlechromelabs.github.io/chrome-for-testing/) into
+`{{chrome_path}}` (default: `{{deploy_path}}/shared/chrome`) and points `{{chrome_path}}/current` to the folder
+with the binary. Use it for headless Chrome (e.g. PDF generation) on servers where the distro only offers Chromium
+as a snap, which can't be started from PHP-FPM.
+
+Each version gets its own folder, so running the task again only downloads when there is a new stable version, and
+you can roll back by pointing `current` to an older folder. The task prints the binary to use:
+`{{chrome_path}}/current/chrome`. If Chrome doesn't start, it lists the missing system libraries. The packages Chrome
+needs are listed in `{{chrome_path}}/current/deb.deps` (Debian/Ubuntu) and `rpm.deps`; installing them needs root.
+
+The server needs `curl` and `unzip`. Supported: Linux x86_64 and arm64.
+
+The task is not part of the deploy flow. Run it by hand, or add it yourself:
+
+```php
+after('deploy:shared', 'sumo:chrome:install');
+```
+
 ### `sumo:config:alter`
 
 Alter the config file for local use.
