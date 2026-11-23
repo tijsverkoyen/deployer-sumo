@@ -43,8 +43,9 @@ task('sumo:chrome:install', function () {
         run('mkdir -p {{chrome_path}}');
         run(sprintf('curl -sSfo %1$s %2$s', escapeshellarg($versionPath . '.zip'), escapeshellarg($url)));
         run(sprintf(
-            'rm -rf %1$s && unzip -q %2$s -d %1$s && rm %2$s',
+            'rm -rf %1$s %2$s && unzip -q %3$s -d %2$s && mv %2$s %1$s && rm %3$s',
             escapeshellarg($versionPath),
+            escapeshellarg($versionPath . '.tmp'),
             escapeshellarg($versionPath . '.zip')
         ));
     }
